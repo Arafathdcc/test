@@ -11,31 +11,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-- task: CopyFiles@2
-  inputs:
-    Contents: '**/*.war'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'warfile'
-    publishLocation: 'Container'
+
 - task: Bash@3
   displayName: 'Invoke AWS API GATEWAY'
   inputs:
     targetType: 'inline'
     script: |
-      curl -X GET -H "Content-Type: application/json" -d 'https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items/1'
+      curl -X GET -H "Content-Type: application/json" -d  https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items/1
 
 
 
