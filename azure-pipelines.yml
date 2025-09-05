@@ -10,7 +10,7 @@ trigger:
 variables:
   API_GATEWAY_URL: 'https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items'
   API_ENDPOINT: '/1'
-  API_KEY: 'nIaEXrQNue9AGb7CAcRzs8LbqzbnmjK09mKRo3TR'
+  #API_KEY: 'nIaEXrQNue9AGb7CAcRzs8LbqzbnmjK09mKRo3TR'
 
 pool:
   vmImage: ubuntu-latest
