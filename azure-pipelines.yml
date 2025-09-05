@@ -26,15 +26,15 @@ steps:
          # Make GET request
           response=$(curl -s -w "\n%{http_code}" \
             -H "Content-Type: application/json" \
-            -H "x-api-key: $(API_KEY)" \
+           # -H "x-api-key: $(API_KEY)" \
             "$(API_GATEWAY_URL)$(API_ENDPOINT)")
           
           # Extract response body and status code
           http_code=$(echo "$response" | tail -n1)
           response_body=$(echo "$response" | sed '$d')
           
-          echo "HTTP Status Code: $http_code"
-          echo "Response Body: $response_body"
+          echo "HTTP Status Code new : $http_code"
+          echo "Response Body new: $response_body"
           
           # Check if request was successful
           if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
