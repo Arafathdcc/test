@@ -7,17 +7,45 @@
 trigger:
 - master
 
+variables:
+  API_GATEWAY_URL: 'https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items'
+  API_ENDPOINT: '/1'
+  API_KEY: 'nIaEXrQNue9AGb7CAcRzs8LbqzbnmjK09mKRo3TR'
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
-
 - task: Bash@3
   displayName: 'Invoke AWS API GATEWAY'
   inputs:
     targetType: 'inline'
     script: |
-      curl -X GET -H "Content-Type: application/json" -d  "https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items/1"
+        echo "Calling AWS API Gateway..."
 
+         # Make GET request
+          response=$(curl -s -w "\n%{http_code}" \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $(API_KEY)" \
+            "$(API_GATEWAY_URL)$(API_ENDPOINT)")
+          
+          # Extract response body and status code
+          http_code=$(echo "$response" | tail -n1)
+          response_body=$(echo "$response" | sed '$d')
+          
+          echo "HTTP Status Code: $http_code"
+          echo "Response Body: $response_body"
+          
+          # Check if request was successful
+          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+            echo "##[section]API call successful!"
+            echo "##vso[task.setvariable variable=API_RESPONSE;isOutput=true]$response_body"
+            echo "##vso[task.setvariable variable=API_STATUS;isOutput=true]SUCCESS"
+          else
+            echo "##[error]API call failed with status code: $http_code"
+            echo "##vso[task.setvariable variable=API_STATUS;isOutput=true]FAILED"
+            exit 1
+          fi
+ 
 
 
