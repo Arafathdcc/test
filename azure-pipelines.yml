@@ -35,7 +35,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      curl -X GET -H "Content-Type: application/json" -d '{"key": "value"}' "$(AWS_API_GATEWAY_URL)"
+      curl -X GET -H "Content-Type: application/json" -d 'https://bqyq8ig3lh.execute-api.eu-west-2.amazonaws.com/items/1'
 
 
 
