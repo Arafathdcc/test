@@ -26,7 +26,6 @@ steps:
          # Make GET request
           response=$(curl -s -w "\n%{http_code}" \
             -H "Content-Type: application/json" \
-            -H "x-api-key: $(API_KEY)" \
             "$(API_GATEWAY_URL)$(API_ENDPOINT)")
           
           # Extract response body and status code
