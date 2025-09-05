@@ -30,6 +30,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'warfile'
     publishLocation: 'Container'
+- task: Bash@3
+  displayName: 'Invoke AWS API GATEWAY'
+  inputs:
+    targetType: 'inline'
+    script: |
+      curl -X GET -H "Content-Type: application/json" -d '{"key": "value"}' "$(AWS_API_GATEWAY_URL)"
 
 
 
