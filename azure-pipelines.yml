@@ -21,7 +21,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-        echo "Calling AWS API Gateway..."
+        echo "Calling AWS API Gateway from Azure Devops..."
 
          # Make GET request
           response=$(curl -s -w "\n%{http_code}" \
